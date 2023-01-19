@@ -28,7 +28,7 @@ namespace BYOD_SalesCube_CustomerInvoiceLines
       //List<InventDimsReponse> inventDimsTotal = GetInventDims();//!!!peligro....
 
 
-      totalInventTransValues = GetInventTransValues(); ///Este tambien!!!
+      //totalInventTransValues = GetInventTransValues(); ///Este tambien!!!
       totalTemp = GetCustomerInvoiceTransValues(); ///este siii!!! 
 
       //List<String> urlsCustInvTrans = GetUrlsListCustomerInvoiceTrans();
@@ -43,7 +43,7 @@ namespace BYOD_SalesCube_CustomerInvoiceLines
       }*/
 
       InsertCustomerInvoiceLinesSalesCube(); ///este si!!!
-      InsertInventTransValues();
+      //InsertInventTransValues();
       DateTime fin = DateTime.Now;
       Console.WriteLine("Total registro : " + totalInventTransValues.Count.ToString());
       Console.WriteLine("Total registro : " + totalTemp.Count.ToString());
