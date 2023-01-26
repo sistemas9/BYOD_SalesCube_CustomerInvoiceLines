@@ -23,35 +23,20 @@ namespace BYOD_SalesCube_CustomerInvoiceLines
     {
       DateTime inicio = DateTime.Now;
       Console.WriteLine("INICIO");
-      //List<ClientesResponse> clientesTotal = GetCustomers();
-      //GenerateCustomerFiles(clientesTotal);
-      //List<InventDimsReponse> inventDimsTotal = GetInventDims();//!!!peligro....
 
-
-      //totalInventTransValues = GetInventTransValues(); ///Este tambien!!!
+      totalInventTransValues = GetInventTransValues(); ///Este tambien!!!
       totalTemp = GetCustomerInvoiceTransValues(); ///este siii!!! 
 
-      //List<String> urlsCustInvTrans = GetUrlsListCustomerInvoiceTrans();
-      //var total = GetCustomerInvoiceTransValues();
-
-
-
-      /*var art = total.Where(a => a.ItemId == "9999-0550" || a.ItemId == "3810-0215").ToList();
-      foreach(var arti in art)
-      {
-        Console.WriteLine("Articulo: {0} COGS: {1}",arti.ItemId,Math.Round(arti.COGS,2));
-      }*/
-
       InsertCustomerInvoiceLinesSalesCube(); ///este si!!!
-      //InsertInventTransValues();
+      InsertInventTransValues();
       DateTime fin = DateTime.Now;
       Console.WriteLine("Total registro : " + totalInventTransValues.Count.ToString());
       Console.WriteLine("Total registro : " + totalTemp.Count.ToString());
       Console.WriteLine("Tiempo transcurrido: " + ((fin - inicio).TotalSeconds).ToString());
-    }
+     }
     public static List<String> GetUrlsListInventTrans(int totalRecords)
     {
-      String urlBase = "https://ayt.operations.dynamics.com/Data/AYT_InventTransV2?%24filter=DateFinancial%20eq%202020-01-02T12%3A00%3A00Z&%24select=dataAreaId%2CDateFinancial%2CQty%2CCostAmountOperations%2CCostAmountAdjustment%2CInventDimId%2CQtySettled%2CInvoiceReturned%2CCostAmountPosted%2CCurrencyCode%2CStatusIssue%2CVoucher%2CItemId%2CInvoiceId%2CCostAmountPhysical%2CStatusReceipt";
+      String urlBase = "https://ayt.operations.dynamics.com/Data/AYT_InventTransV2?%24filter=DateFinancial%20eq%202023-01-25T12%3A00%3A00Z&%24select=dataAreaId%2CDateFinancial%2CQty%2CCostAmountOperations%2CCostAmountAdjustment%2CInventDimId%2CQtySettled%2CInvoiceReturned%2CCostAmountPosted%2CCurrencyCode%2CStatusIssue%2CVoucher%2CItemId%2CInvoiceId%2CCostAmountPhysical%2CStatusReceipt";
       List<String> urlArray = new List<String>();
       for (int i = 0; i < totalRecords; i += 1000)
       {
@@ -64,7 +49,7 @@ namespace BYOD_SalesCube_CustomerInvoiceLines
     public static int GetTotalInventTrans()
     {
       int TotalCustomerInvoice = 0;
-      String urlBase = "https://ayt.operations.dynamics.com/Data/AYT_InventTransV2?%24select=dataAreaId&%24top=1&%24count=true";
+      String urlBase = "https://ayt.operations.dynamics.com/Data/AYT_InventTransV2?%24filter=DateFinancial%20eq%202023-01-25T12%3A00%3A00Z&%24select=dataAreaId&%24top=1&%24count=true";
       ConsultaEntity entity = new ConsultaEntity();
       var result = entity.QueryEntity(urlBase).Result;
       var resultProducts = JsonConvert.DeserializeObject<dynamic>(result.Content.Replace("@odata.count", "count"));
@@ -176,7 +161,8 @@ namespace BYOD_SalesCube_CustomerInvoiceLines
       }
       List<Clientes> clientesFinal = totalClientes.SelectMany(x => x.value).ToList();
       return totalClientes;
-    }    public static void GenerateCustomerFiles(List<ClientesResponse> clientesTotal)
+    }    
+    public static void GenerateCustomerFiles(List<ClientesResponse> clientesTotal)
     {
       int fileName = 1;
       foreach (var clientes in clientesTotal)
@@ -250,7 +236,7 @@ namespace BYOD_SalesCube_CustomerInvoiceLines
     public static int GetTotalCustomerInvoiveTrans()
     {
       int TotalCustomerInvoiceTrans = 0;
-      String urlBase = "https://ayt.operations.dynamics.com/Data/AYT_CustInvoiceTrans?%24select=dataAreaId&%24top=1&%24count=true&$filter=InvoiceDate%20eq%202020-01-02T12%3A00%3A00Z";
+      String urlBase = "https://ayt.operations.dynamics.com/Data/AYT_CustInvoiceTrans?%24select=dataAreaId&%24top=1&%24count=true&$filter=InvoiceDate%20eq%202023-01-25T12%3A00%3A00Z";
       ConsultaEntity entity = new ConsultaEntity();
       var result = entity.QueryEntity(urlBase).Result;
       var resultCustomerInvoiceTrans = JsonConvert.DeserializeObject<dynamic>(result.Content.Replace("@odata.count", "count"));
@@ -260,7 +246,7 @@ namespace BYOD_SalesCube_CustomerInvoiceLines
     public static List<String> GetUrlsListCustomerInvoiceTrans()
     {
       int totalRecords = GetTotalCustomerInvoiveTrans();
-      String urlBase = "https://ayt.operations.dynamics.com/Data/AYT_CustInvoiceTrans?%24filter=InvoiceDate%20eq%202020-01-02T12%3A00%3A00Z&%24select=Qty%2CTaxAmountMST%2CInventQty%2CLineAmountMST%2CdataAreaId%2CStockedProduct%2CInvoiceDate%2CCurrencyCode%2CItemId%2CSalesUnit%2CInventDimId%2CInvoiceId%2CSalesId";
+      String urlBase = "https://ayt.operations.dynamics.com/Data/AYT_CustInvoiceTrans?%24filter=InvoiceDate%20eq%202023-01-25T12%3A00%3A00Z&%24select=Qty%2CTaxAmountMST%2CInventQty%2CLineAmountMST%2CdataAreaId%2CStockedProduct%2CInvoiceDate%2CCurrencyCode%2CItemId%2CSalesUnit%2CInventDimId%2CInvoiceId%2CSalesId";
       List<String> urlArray = new List<String>();
       for (int i = 0; i < totalRecords; i += 500)
       {
