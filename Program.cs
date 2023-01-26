@@ -27,7 +27,6 @@ namespace BYOD_SalesCube_CustomerInvoiceLines
       totalInventTransValues = GetInventTransValues(); ///Este tambien!!!
       totalTemp = GetCustomerInvoiceTransValues(); ///este siii!!! 123
 
-
       InsertCustomerInvoiceLinesSalesCube(); ///este si!!!
       InsertInventTransValues();
       DateTime fin = DateTime.Now;
