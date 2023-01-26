@@ -25,7 +25,7 @@ namespace BYOD_SalesCube_CustomerInvoiceLines
       Console.WriteLine("INICIO");
 
       totalInventTransValues = GetInventTransValues(); ///Este tambien!!!
-      totalTemp = GetCustomerInvoiceTransValues(); ///este siii!!! 123
+      totalTemp = GetCustomerInvoiceTransValues(); ///este siii!!!
 
       InsertCustomerInvoiceLinesSalesCube(); ///este si!!!
       InsertInventTransValues();
